@@ -1,6 +1,12 @@
 #!/bin/sh
 LABELCHARS="AB"
 
+echo "$0 $(date) $*" >> /data/fw.log
+echo() {
+    command echo "$0 $(date) $*" >> /data/fw.log
+    command echo $@
+}
+
 get_bootpart() {
     local current_slot=`nvbootctrl get-current-slot 2>/dev/null || tegra-boot-control --current-slot 2>/dev/null`
     if [ -z "$current_slot" ]; then
